@@ -1,0 +1,43 @@
+﻿import { notFound } from "next/navigation";
+import CategoryProducts from "@/components/CategoryProducts";
+import EmptyState from "@/components/EmptyState";
+import { getCategories, getProducts } from "@/lib/api";
+
+export default async function CategoryPage({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}) {
+  const { slug } = await params;
+
+  const categories = await getCategories();
+  const category = categories.find((c) => c.slug === slug);
+  if (!category) notFound();
+
+  const products = await getProducts(slug);
+
+  return (
+    <div className="mx-auto max-w-6xl space-y-4 px-4 py-6">
+      <div className="flex items-center gap-4 rounded-2xl border border-gray-200 bg-white p-5">
+        <div className="flex h-14 w-14 items-center justify-center rounded-xl bg-gray-100 text-3xl">
+          {category.icon}
+        </div>
+        <div>
+          <h1 className="text-2xl font-bold">{category.nameBn}</h1>
+          <p className="text-sm text-gray-500">
+            প্রতিটি পণ্যের আজকের দাম ও পরিবর্তন
+          </p>
+        </div>
+      </div>
+
+      {products.length === 0 ? (
+        <EmptyState
+          title="কোনো পণ্য পাওয়া যায়নি"
+          message="এই ক্যাটাগরিতে এখন কোনো পণ্য নেই।"
+        />
+      ) : (
+        <CategoryProducts products={products} />
+      )}
+    </div>
+  );
+}
