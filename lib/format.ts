@@ -2,6 +2,14 @@
   return Number(value).toLocaleString("bn-BD");
 }
 
+export function toBnPrice(value: number): string {
+  if (Number.isInteger(value)) return toBn(value);
+  return value.toLocaleString("bn-BD", {
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2,
+  });
+}
+
 export function unitLabel(unit: string): string {
   const units: Record<string, string> = {
     kg: "কেজি",

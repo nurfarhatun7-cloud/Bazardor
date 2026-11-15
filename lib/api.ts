@@ -1,4 +1,4 @@
-﻿import type { Category, Product } from "./types";
+﻿import type { Category, Product, ProductDetail } from "./types";
 
 const BASES = [
   "https://openapi.programming-hero.com/api/bazardor",
@@ -27,4 +27,8 @@ export function getCategories() {
 export function getProducts(category?: string) {
   const path = category ? `/products?category=${category}` : "/products";
   return fetchApi<Product[]>(path, 600);
+}
+
+export function getProduct(id: number | string) {
+  return fetchApi<ProductDetail>(`/products/${id}`, 600);
 }

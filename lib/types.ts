@@ -20,3 +20,17 @@ export type Product = {
   today: number;
   change: Change;
 };
+
+export type Market = {
+  market: string;
+  division: string;
+  min: number;
+  max: number;
+};
+
+export type ProductDetail = Product & {
+  categoryNameBn: string;
+  categoryIcon: string;
+  yesterday: number;
+  markets: Market[];
+};
