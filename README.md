@@ -4,8 +4,7 @@
 
 ## Live Link
 
-Add your Vercel link here.
-
+https://bazardor-gamma-smoky.vercel.app
 ## Technologies Used
 
 - Next.js (App Router)
